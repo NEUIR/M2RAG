@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: visual_bge
+Version: 0.1.0
+Summary: visual_bge
+Home-page: https://github.com/FlagOpen/FlagEmbedding/tree/master/research/visual_bge
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: torchvision
+Requires-Dist: timm
+Requires-Dist: einops
+Requires-Dist: ftfy
+
+./README.md

@@ -1,0 +1,4 @@
+torchvision
+timm
+einops
+ftfy

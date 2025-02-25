@@ -1,13 +1,29 @@
 # Benchmarking Retrieval-Augmented Generation in Multi-Modal Contexts
-Source code for our paper : [Benchmarking Retrieval-Augmented Generation in Multi-Modal Contexts]()
+Source code for our paper : [Benchmarking Retrieval-Augmented Generation in Multi-Modal Contexts](https://arxiv.org/abs/2502.17297)
+
+Click the links below to view our paper and datasets
+<a href='https://arxiv.org/abs/2502.17297'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a><a href='https://huggingface.co/datasets/whalezzz/M2RAG'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-M2RAG-blue'></a>
 
 If you find this work useful, please cite our paper  and give us a shining star 🌟
 
-<!-- 
+```
+@misc{liu2025benchmarkingretrievalaugmentedgenerationmultimodal,
+      title={Benchmarking Retrieval-Augmented Generation in Multi-Modal Contexts}, 
+      author={Zhenghao Liu and Xingsheng Zhu and Tianshuo Zhou and Xinyi Zhang and Xiaoyuan Yi and Yukun Yan and Yu Gu and Ge Yu and Maosong Sun},
+      year={2025},
+      eprint={2502.17297},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2502.17297}, 
+}
+```
+
+
 ## Overview
 
-MARVEL unlocks the multi-modal capability of dense retrieval via visual module plugin. It encodes queries and multi-modal documents with a unified encoder model to bridge the modality gap between images and texts, conducts retrieval, modality routing, and result fusion within a unified embedding space.
+The M2RAG benchmark evaluates Multi-modal Large Language Models (MLLMs) by using multi-modal retrieved documents to answer questions. It includes four tasks: image captioning, multi-modal QA, fact verification, and image reranking, assessing MLLMs’ ability to leverage knowledge from multi-modal contexts. The Multi-Modal Retrieval Augmented Instruction Tuning (MM-RAIT) method further adapts MLLMs to multi-modal in-context learning, enhancing their effectiveness in utilizing knowledge from these retrieval documents.
 
+<!-- 
 <p align="center">
   <img align="middle" src="image/marvel.gif" height="350" alt="MARVEL"/>
 </p> -->
@@ -47,11 +63,19 @@ MM-RAIT is built on [MiniCPM-V 2.6](https://huggingface.co/openbmb/MiniCPM-V-2_6
 git clone https://github.com/NEUIR/M2RAG
 cd M2RAG
 ```
-* Second, you can either directly download and use [M2RAG](), or follow the instructions in 'data/data_preprocess' to build it step by step. Please place the downloaded dataset in the data folder.
+* Second, you can either directly download and use [M2RAG](https://huggingface.co/datasets/whalezzz/M2RAG), or follow the instructions in 'data/data_preprocess' to build it step by step. Please place the downloaded dataset in the data folder.
+(❗️Note: For the ```imgs.tsv```, you need to download the data from [this link](https://drive.google.com/drive/folders/1ApfD-RzvJ79b-sLeBx1OaiPNUYauZdAZ?usp=sharing) and run ```7z x imgs.7z.001```).
 
 ```
 data/
 └──m2rag/
+    ├──fact_verify/
+    ├──image_cap/
+    ├──image_rerank/
+    ├──mmqa/
+    ├──imgs.lineidx.new
+    └──imgs.tsv
+    
 ```
 ### Inference for Zero-Shot setting
 Once the dataset and vanilla models are ready, you can follow the instructions below to reproduce our zero-shot results.

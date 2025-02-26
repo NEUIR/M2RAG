@@ -49,7 +49,7 @@ def load_data(image_path, trec_path, data_path, topk=5):
             caption =  json_line['caption']
             for img_id in qid_2_candids[id]:
                 if 'webqa' in image_path:
-                    image = os.path.join(image_path,f'qid_{id}', f'image_{img_id}.png')
+                    image = os.path.join(image_path, f'image_{img_id}.png')
                 one = {
                     'id':id,
                     'image':image,

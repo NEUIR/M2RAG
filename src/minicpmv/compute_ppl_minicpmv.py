@@ -130,9 +130,3 @@ if __name__ == "__main__":
         fout.write(json.dumps(ppl_list))
 
 
-            
-            
-
-
-    
-

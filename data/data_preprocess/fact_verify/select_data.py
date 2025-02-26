@@ -52,7 +52,7 @@ def write_data(data,outpath):
             json.dump(item, fout) 
             fout.write('\n')
     print(f"Data has been written to {outpath}")
- 
+
 
 if __name__=='__main__':
     test_data_path='../raw_data/factify/factify_val.jsonl'
@@ -69,7 +69,3 @@ if __name__=='__main__':
     train_data=change_data(train_data)
     train_data_output_path=os.path.join(output_path,'train_data.jsonl')
     write_data(train_data,train_data_output_path)
-    
-            
-                
-            

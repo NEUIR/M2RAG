@@ -30,7 +30,7 @@ python mmqa/select_data.py
 
 **🌵 4. Multi-Modal Fact Verification task.**
 * Step-1: First, download the original Factify dataset. After downloading, place the train.csv and val.csv files in the following directory: ```../raw_data/factify/``` \
-Next, run the ```download_images.py``` to download the images and filter outt the data for which images cannot be downloaded. The result files are: ```../raw_data/factify/factify_train.jsonl``` and ```../raw_data/factify/factify_val.jsonl```. They will be used to Step-2: select data.
+Next, run the ```download_images.py``` to download the images and filter out the data for which images cannot be downloaded. The result files are: ```../raw_data/factify/factify_train.jsonl``` and ```../raw_data/factify/factify_val.jsonl```. They will be used to Step-2: select data.
 ```bash
 python fact_verify/download_images.py
 ```

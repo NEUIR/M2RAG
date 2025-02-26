@@ -36,6 +36,7 @@ class InferenceDataset(Dataset):
     def __init__(self, args, data, prompt):
         
         self.data=data
+        self.data_dir=args.data_dir
         self.prompt=prompt
         self.topk = args.topk
         self.device=args.device
@@ -132,21 +133,23 @@ class InferenceDataset(Dataset):
         instance = {}
         instance['id'] = example['id']
         if self.task=='image_cap':
-            instance['image']=self.encode_img(example['image_path'])
+            image_path=os.path.abspath(os.path.join(self.data_dir,example['image_path']))
+            instance['image']=self.encode_img(image_path)
             
         elif self.task=='mmqa':
             instance['query']=example['query']
             
         elif self.task=='fact_verify':
             instance['claim']=example['claim']
-            instance['claim_image']=self.encode_img(example['claim_image'])
+            claim_image_path=os.path.abspath(os.path.join(self.data_dir,example['claim_image']))
+            instance['claim_image']=self.encode_img(claim_image_path)
             
             document=example['document'].split()
             document=document[:500]
             document=' '.join(document)
             instance['document']=document
-            
-            instance['document_image']=self.encode_img(example['document_image'])
+            document_image_path=os.path.abspath(os.path.join(self.data_dir,example['document_image']))
+            instance['document_image']=self.encode_img(document_image_path)
 
         else:
                     raise ValueError("The task is error!")
@@ -159,7 +162,8 @@ class InferenceDataset(Dataset):
             cands_caption=[]
             for doc in cands[:self.topk]:
                     if isinstance(doc, dict):
-                        cands_image.append(self.encode_img(doc['image_path']))
+                        doc_image_path=os.path.abspath(os.path.join(self.data_dir,doc['image_path']))
+                        cands_image.append(self.encode_img(doc_image_path))
                         if 'image_caption' in doc:
                             cands_caption.append(doc['image_caption'])
                     else:

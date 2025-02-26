@@ -27,6 +27,7 @@ if __name__=='__main__':
     parser = argparse.ArgumentParser("")
     parser.add_argument("--model_path",type=str,default='openbmb/MiniCPM-V-2_6')
     parser.add_argument("--path_to_adapter", type=str)
+    parser.add_argument('--data_dir',type=str,default='data/m2rag')
     parser.add_argument('--data_path',type=str,default='')
     parser.add_argument('--retrieval_data_path',type=str,default='')
     parser.add_argument('--prompt', type=str, default='')

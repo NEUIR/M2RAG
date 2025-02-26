@@ -42,6 +42,7 @@ class ImgDataset(Dataset):
         return len(self.images)
 
     def encode_img(self, image_path):
+        image_path=os.path.abspath(os.path.join(args.data_dir,image_path)) #absolute path
         img = self.preprocess(Image.open(image_path).convert('RGB'))
         return {'img': img}
 
@@ -224,11 +225,11 @@ if __name__ == '__main__':
     parser.add_argument('--is_query', action='store_true', default=False)
     parser.add_argument('--flag', type=str, default='test')
 
-
+    parser.add_argument("--data_dir", type=str,default='data/m2rag')
     parser.add_argument("--text_path", type=str,default='')
-    parser.add_argument("--image_path", type=str,default='../data/raw_data/WebQA/all_imgs.json')
-    parser.add_argument("--img_linelist_path", type=str,default='../data/raw_data/WebQA/imgs.lineidx.new')
-    parser.add_argument("--img_feat_path", type=str, default='../data/raw_data/WebQA/imgs.tsv')
+    parser.add_argument("--image_path", type=str,default='')
+    parser.add_argument("--img_linelist_path", type=str,default='../data/m2rag/imgs.lineidx.new')
+    parser.add_argument("--img_feat_path", type=str, default='../data/m2rag/imgs.tsv')
     parser.add_argument("--sec_text_path", type=str,default='')
 
     parser.add_argument('--encode_text', action='store_true', default=False)

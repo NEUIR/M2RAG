@@ -1,7 +1,8 @@
 # Benchmarking Retrieval-Augmented Generation in Multi-Modal Contexts
 Source code for our paper : [Benchmarking Retrieval-Augmented Generation in Multi-Modal Contexts](https://arxiv.org/abs/2502.17297)
 
-Click the links below to view our paper and datasets
+Click the links below to view our paper and datasets.
+
 <a href='https://arxiv.org/abs/2502.17297'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a><a href='https://huggingface.co/datasets/whalezzz/M2RAG'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-M2RAG-blue'></a>
 
 If you find this work useful, please cite our paper  and give us a shining star 🌟
@@ -19,17 +20,19 @@ If you find this work useful, please cite our paper  and give us a shining star 
 ```
 
 
-## Overview
+## 🎃 Overview
 
-The M2RAG benchmark evaluates Multi-modal Large Language Models (MLLMs) by using multi-modal retrieved documents to answer questions. It includes four tasks: image captioning, multi-modal QA, fact verification, and image reranking, assessing MLLMs’ ability to leverage knowledge from multi-modal contexts. The Multi-Modal Retrieval Augmented Instruction Tuning (MM-RAIT) method further adapts MLLMs to multi-modal in-context learning, enhancing their effectiveness in utilizing knowledge from these retrieval documents.
+The **$M^2RAG$** benchmark evaluates Multi-modal Large Language Models (MLLMs) by using multi-modal retrieved documents to answer questions. It includes four tasks: image captioning, multi-modal QA, fact verification, and image reranking, assessing MLLMs’ ability to leverage knowledge from multi-modal contexts. 
 
-<!-- 
+The **Multi-Modal Retrieval Augmented Instruction Tuning (MM-RAIT)** method further adapts MLLMs to multi-modal in-context learning, enhancing their effectiveness in utilizing knowledge from these retrieval documents.
+
+
 <p align="center">
-  <img align="middle" src="image/marvel.gif" height="350" alt="MARVEL"/>
-</p> -->
+  <img align="middle" src="assets/m2rag.png" height="250" alt="m2rag"/>
+</p>
 
-## Requirement
-**1. Install the following packages using Pip or Conda under this environment**
+## 🎃 Requirement
+**🌵 1. Install the following packages using Pip or Conda under this environment**
 
 ```
 Python==3.10
@@ -51,13 +54,13 @@ sklearn
 ```
 We provide the version file `requirements.txt` of all our used packages, if you have any problems configuring the environment, please refer to this document.
 
-**2. Prepare the pretrained models: MiniCPM-V 2.6, Qwen2-VL, and VISTA**
+**🌵 2. Prepare the pretrained models: MiniCPM-V 2.6, Qwen2-VL, and VISTA**
 
-MM-RAIT is built on [MiniCPM-V 2.6](https://huggingface.co/openbmb/MiniCPM-V-2_6) and [Qwen2-VL](https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct) model. [VISTA](https://huggingface.co/BAAI/bge-visualized) is used for retrieval multi-modal documents.
+**MM-RAIT** is built on [MiniCPM-V 2.6](https://huggingface.co/openbmb/MiniCPM-V-2_6) and [Qwen2-VL](https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct) model. [VISTA](https://huggingface.co/BAAI/bge-visualized) is used for retrieval multi-modal documents.
 
-## Reproduce MM-RAIT
+## 🎃 Reproduce MM-RAIT
 
-### Download Code & Dataset
+### 🌵 Download Code & Dataset
 * First, use `git clone` to download this project:
 ```bash
 git clone https://github.com/NEUIR/M2RAG
@@ -77,7 +80,7 @@ data/
     └──imgs.tsv
     
 ```
-### Inference for Zero-Shot setting
+### 🌵 Inference for Zero-Shot setting
 Once the dataset and vanilla models are ready, you can follow the instructions below to reproduce our zero-shot results.
 
 * Step 1: Encode the queries from the test set and the multi-modal corpus for each task.
@@ -98,7 +101,7 @@ For Image Reranking task, please use:
 ```
 bash compute_ppl_minicpmv.sh or bash compute_ppl_qwen2vl.sh
 ```
-### Train MM-RAIT using MM-RAIT
+### 🌵 Train MM-RAIT using MM-RAIT
 **Using the MiniCPM-V 2.6 models as an example, I will show you how to reproduce the results in this paper. The same is true for the Qwen2-VL. Also, we provide fine-tuned checkpoints. You can skip this step and proceed directly to inference.**
 
 * First step: Prepare the training data.
@@ -123,7 +126,7 @@ For Image Reranking task, please use:
 ```
 bash compute_ppl_minicpmv.sh
 ```
-## Evaluate Generation Effectiveness
+## 🎃 Evaluate Generation Effectiveness
 Go to the ``src/evaluation`` folder and evaluate model performance as follow:
 * For Image Captioning and Muit-modal QA tasks, please use:
 ```
@@ -138,9 +141,8 @@ python evaluation/classification.py --true_file path_to_reference_data --pred_fi
 python -m pytorch_fid path/to/reference_images path/to/rerank_images
 ```
 
-
-## Contact
+## 🎃 Contact
 If you have questions, suggestions, and bug reports, please email:
-```
-zhuxingsheng@stumail.neu.edu.cn
+```bash
+zhuxingsheng@stumail.neu.edu.cn     zhoutianshuo@stumail.neu.edu.cn 
 ```

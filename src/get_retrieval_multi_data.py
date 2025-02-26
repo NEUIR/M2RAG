@@ -154,6 +154,7 @@ def get_cand_data(args,path,task,qid_2_candid,output_path,retrieval_modality=Non
                 for did in cands[:args.topN]:
                     if 'image' in did:
                         image_path=cand_image_data[did]
+                        image_path=os.path.abspath(os.path.join(args.data_dir,image_path)) #absolute path
                         new_image_path=copy_image_to_target(image_path, output_dir)
                         item['cands'].append({'image_path':new_image_path})
                     else:
@@ -187,6 +188,7 @@ def get_cand_data(args,path,task,qid_2_candid,output_path,retrieval_modality=Non
             
 if __name__ == '__main__':
     parser = argparse.ArgumentParser("")
+    parser.add_argument("--data_dir",type=str,default='data/m2rag')
     parser.add_argument("--cand_path",type=str,default='')
     parser.add_argument("--cand_second_path",type=str) # the path of the second modality data (mainly used for image)
     parser.add_argument("--cand_multi_path",type=str)

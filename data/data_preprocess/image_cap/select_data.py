@@ -5,7 +5,7 @@ random.seed(2025)
 import os
 import base64
 from PIL import Image
-from visual import TSVFile
+from src.visual import TSVFile
 import io
 import json
 

@@ -6,7 +6,7 @@ random.seed(2025)
 import os
 import base64
 from PIL import Image
-from visual import TSVFile
+from src.visual import TSVFile
 import io
 import shutil
 
@@ -139,8 +139,3 @@ if __name__=='__main__':
     
     # cand_image_path
     shutil.copy(image_cap_path, output_path)
-      
-                    
-            
-            
-            

@@ -18,7 +18,7 @@ def load_data(data_path):
 
 
 def merge_origin_data_with_retrieved_data(origin_data: dict,retrieved_data: dict, task: str):
-    assert task in ['mmqa','fact_verify','wiki_gen','image_cap']
+    assert task in ['mmqa','fact_verify','image_cap']
     data_list = []
     assert len(list(set(origin_data.keys()))) == len(list(set(retrieved_data.keys())))
     assert len(origin_data) == len(retrieved_data)
@@ -29,7 +29,7 @@ def merge_origin_data_with_retrieved_data(origin_data: dict,retrieved_data: dict
     return data_list
 
 def transform_to_conversation_type(data_list, task, llm_type,topk):
-    assert task in ['mmqa','fact_verify','wiki_gen','image_cap']
+    assert task in ['mmqa','fact_verify','image_cap']
     conversation_data_list = []
     if task == 'image_cap':
         for data in data_list:
@@ -266,81 +266,6 @@ def transform_to_conversation_type(data_list, task, llm_type,topk):
                     {
                         "role": "assistant",
                         "content": main_category
-                    }
-                ]
-                # 5、 construct data
-                one_conversation_data = {
-                    "messages": messages,
-                    "images": image_template_dict
-                }
-                conversation_data_list.append(one_conversation_data)
-    elif task == 'wiki_gen':
-        for data in data_list:
-            # collect data
-            main_image = data['image_path']
-            main_image_title = data['page_title']
-            main_image_page_description = data['clean_page_description']
-            id = task + "_" + data['id']
-            retrieval_image_list = []
-            retrieval_text_list = []
-            # topk = len(data['cands'])
-            for retrieved_cand in data['cands'][:topk]:
-                if isinstance(retrieved_cand,str):
-                    retrieved_cand = retrieved_cand.split()
-                    retrieved_cand = retrieved_cand[:400]
-                    retrieved_cand =' '.join(retrieved_cand)
-                elif isinstance(retrieved_cand,dict):
-                    retrieval_image_list.append(retrieved_cand['image_path'])
-                else:
-                    raise NotImplementedError
-            # construct data
-            # 1、 construct image template
-            image_list = [main_image] + retrieval_image_list
-            if llm_type =='minicpmv':
-                image_template_dict, image_template = construct_image_template_for_minicpmv(image_list)
-            elif llm_type == 'qwen2vl':
-                #TODO:
-                image_template_dict, image_template = construct_image_template_for_qwen2vl(image_list)
-            else:
-                raise NotImplementedError
-            # 2、 construct text
-            retrieved_text_str = 'null'
-            if len(retrieval_text_list) != 0:
-                retrieved_text_str =''.join(f'[{i+1}] {text}' for i, text in enumerate(retrieval_text_list))
-            # 3、 construct prompt template
-            prompt = get_prompt(task=task, topk=topk)
-            prompt = prompt.replace("Image: The first image.",
-                                    f"{image_template}\nImage: The first image.")
-            prompt = prompt.format(title = main_image_title,
-                                   retrieval_text = retrieved_text_str)
-            # 4、 construct conversation
-            if llm_type =='minicpmv':
-                conversations = [
-                    {
-                        "role": "user",
-                        "content": prompt
-                    },
-                    {
-                        "role": "assistant",
-                        "content": main_image_page_description
-                    }
-                ]
-                # 5、 construct data
-                one_conversation_data = {
-                    "id": id,
-                    "image": image_template_dict,
-                    "conversations": conversations
-                }
-                conversation_data_list.append(one_conversation_data)
-            elif llm_type == 'qwen2vl':
-                messages = [
-                    {
-                        "role": "user",
-                        "content": prompt
-                    },
-                    {
-                        "role": "assistant",
-                        "content": main_image_page_description
                     }
                 ]
                 # 5、 construct data

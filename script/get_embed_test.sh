@@ -52,7 +52,7 @@ python ../src/get_emb.py \
 --model_name $MODEL_NAME \
 --model_weight $MODEL_WEIGHT \
 --out_path ../output/embed/ \
---image_path ../data/raw_data/webqa/all_imgs.json \
+--image_path ../data/m2rag/mmqa/all_imgs.json \
 --img_linelist_path $IMG_LINELIST_PATH \
 --img_feat_path $IMG_FEAT_PATH \
 --text_path ../data/m2rag/mmqa/cand_text_docs.jsonl \
@@ -107,7 +107,7 @@ python ../src/get_emb.py \
 --model_name $MODEL_NAME \
 --model_weight $MODEL_WEIGHT \
 --out_path ../output/embed/ \
---image_path ../data/raw_data/webqa/all_imgs.json \
+--image_path ../data/m2rag/image_rerank/all_imgs.json \
 --img_linelist_path $IMG_LINELIST_PATH \
 --img_feat_path $IMG_FEAT_PATH \
 --dataset_name webqa \

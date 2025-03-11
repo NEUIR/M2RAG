@@ -9,7 +9,7 @@ Response the caption for the image directly, do not include any explanations or 
 Caption:'''
         elif task=='mmqa':
             prompt='''You are an intelligent assistant capable of answering complex questions.
-Your task is to carefully analyze the question and provide a detailed, well-structured, and contextually accurate answer in the form of a complete sentence. 
+Your task is to carefully analyze the queation and provide a detailed, well-structured, and contextually accurate answer in the form of a complete sentence. 
 Write a detailed and accurate answer directly, do not include unrelated details in your response.
 
 Question: {question}
@@ -24,7 +24,7 @@ Response to the category of the claim directly, do not say any other words or ex
 Claim_Text: {claim_text}
 
 Category:'''
-        
+
     else:
         if task=='image_cap':
             prompt='''You are an intelligent assistant capable of generating accurate and detailed captions for images.
@@ -32,18 +32,18 @@ You will be given one image and several retrieved images and their captions. The
 Response the caption for the image directly, do not include any explanations or unrelated details.
 
 Image: The first image.
-Retrieved_Image_Caption: {retrieval_image_caption}
+Retrieved_Image_Caption: {retrirval_image_caption}
 
 Caption:'''
         elif task=='mmqa':
             prompt='''You are an intelligent assistant capable of answering complex questions using both visual and textual data.
 I will provide you with a question and several retrieved images or texts to assist you.
-Your task is to carefully analyze the question and retrieved information to provide a detailed, well-structured, and contextually accurate answer in the form of a complete sentence. 
+Your task is to carefully analyze the queation and retrieved information to provide a detailed, well-structured, and contextually accurate answer in the form of a complete sentence. 
 Write a detailed and accurate answer directly, do not include additional context, or unrelated details in your response.
 
 Question: {question}
-Retrieved_Image_Caption: {retrieval_image_caption}
-Retrieved_Text: {retrieval_text}
+Retrieved_Image_Caption: {retrirval_image_caption}
+Retrieved_Text: {retrirval_text}
 
 Answer:'''
         elif task=='fact_verify':
@@ -54,12 +54,8 @@ Response the category for the claim and document directly, do not say any other 
 
 Claim_Image: The first image.
 Claim_Text: {claim_text}
-Golden_Document_Image: The second image.
-Golden_Document_Text: {doc_text}
-Retrieved_Document_Text: {retrieval_text}
+Retrieved_Document_Text: {retrirval_text}
 
 Category:'''
         
     return prompt
-
-#

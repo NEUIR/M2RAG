@@ -5,6 +5,15 @@ MODEL_WEIGHT='../pretrained_model/Visualized_base_en_v1.5.pth'
 IMG_LINELIST_PATH='../data/m2rag/imgs.lineidx.new'
 IMG_FEAT_PATH='../data/m2rag/imgs.tsv' 
 
+output_path="../output"
+
+if [ ! -d "$output_path" ]; then
+    mkdir -p "$output_path"
+    echo "Directory $output_path has been created."
+else
+    echo "Directory $output_path already exists."
+fi
+
 # ---------Task-1: image_cap----------
 test_query
 export CUDA_VISIBLE_DEVICES=0
@@ -40,7 +49,7 @@ python ../src/get_emb.py \
 --model_name $MODEL_NAME \
 --model_weight $MODEL_WEIGHT \
 --out_path ../output/embed/ \
---image_path ../data/m2rag/mmqa/test_data.jsonl \
+--text_path ../data/m2rag/mmqa/test_data.jsonl \
 --dataset_name webqa \
 --task mmqa \
 --encode_text \
@@ -95,7 +104,7 @@ python ../src/get_emb.py \
 --model_name $MODEL_NAME \
 --model_weight $MODEL_WEIGHT \
 --out_path ../output/embed/ \
---image_path ../data/m2rag/image_rerank/test_data.jsonl \
+--text_path ../data/m2rag/image_rerank/test_data.jsonl \
 --dataset_name webqa \
 --task image_rerank \
 --encode_text \

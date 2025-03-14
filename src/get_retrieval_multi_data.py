@@ -166,14 +166,12 @@ def get_cand_data(args,path,task,qid_2_candid,output_path,retrieval_modality=Non
         output_dir=os.path.join(output_path,f'{args.dataset_name}_{task}_{args.flag}_retrieval_images_{args.topN}')
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
-        image_index = 0
         for qid,dids in qid_2_candid.items():
             item = {'id':qid, 'cands':[]}
             for did in dids[:args.topN]:
                 image=get_image(img_map,img_tsv,did)
                 
-                output_name=os.path.join(output_dir,f'image_{image_index}.png')
-                image_index+=1
+                output_name=os.path.join(output_dir,f'image_{did}.png')
                 save_images(output_name,image)
                 item['cands'].append({'image_path':output_name})
                 if args.topN==1:

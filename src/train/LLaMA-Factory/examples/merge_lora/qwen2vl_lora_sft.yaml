@@ -1,0 +1,14 @@
+### Note: DO NOT use quantized model or quantization_bit when merging lora adapters
+
+### model
+model_name_or_path: /path/to/Qwen2-VL-7B-Instruct
+adapter_name_or_path: /path/to/adapters
+template: qwen2_vl
+finetuning_type: lora
+trust_remote_code: true
+
+### export
+export_dir: /path/to/export_dir
+export_size: 2
+export_device: cpu
+export_legacy_format: false

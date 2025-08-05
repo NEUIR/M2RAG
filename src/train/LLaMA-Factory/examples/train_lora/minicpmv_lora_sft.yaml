@@ -1,0 +1,48 @@
+# 5.2 zhuxingsheng
+
+###  model
+model_name_or_path: /path/to/minicpmv-2_6
+freeze_vision_tower: false
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 8
+lora_target: all
+
+
+### dataset
+dataset: qwen2vl_supervised_train_remove_dup
+template: minicpm_v
+cutoff_len: 4096
+max_samples: 45000
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+
+### output
+output_dir: /path/to/output_dir
+logging_steps: 10
+save_steps: 500
+plot_loss: true
+overwrite_output_dir: true
+
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 4
+learning_rate: 5.0e-5
+num_train_epochs: 5
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+
+
+## eval
+val_size: 0.04
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 500

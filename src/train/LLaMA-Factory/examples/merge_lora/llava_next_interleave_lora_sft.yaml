@@ -1,0 +1,11 @@
+model_name_or_path: /path/to/llava-interleave-qwen-7b-hf
+adapter_name_or_path: /path/to/adapters
+template: qwen2_vl
+finetuning_type: lora
+trust_remote_code: true
+
+### export
+export_dir: /path/to/export_dir
+export_size: 5
+export_device: cpu  # choices: [cpu, auto]
+export_legacy_format: false

@@ -3,7 +3,7 @@ Source code for our paper : [Benchmarking Retrieval-Augmented Generation in Mult
 
 Click the links below to view our paper and datasets.
 
-<a href='https://arxiv.org/abs/2502.17297'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a><a href='https://huggingface.co/datasets/whalezzz/M2RAG'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-M2RAG-blue'></a><a herf='https://huggingface.co/whalezzz/models'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-MM--RAIT-blue'></a>
+<a href='https://arxiv.org/abs/2502.17297'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a><a href='https://huggingface.co/datasets/whalezzz/M2RAG'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-M2RAG-blue'></a><a href='https://huggingface.co/whalezzz/models'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-MM--RAIT-blue'></a>
 
 If you find this work useful, please cite our paper  and give us a shining star 🌟
 

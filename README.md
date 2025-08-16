@@ -10,15 +10,14 @@ If you find this work useful, please cite our paper  and give us a shining star 
 ```
 @misc{liu2025benchmarkingretrievalaugmentedgenerationmultimodal,
       title={Benchmarking Retrieval-Augmented Generation in Multi-Modal Contexts}, 
-      author={Zhenghao Liu and Xingsheng Zhu and Tianshuo Zhou and Xinyi Zhang and Xiaoyuan Yi and Yukun Yan and Yu Gu and Ge Yu and Maosong Sun},
+      author={Zhenghao Liu and Xingsheng Zhu and Tianshuo Zhou and Xinyi Zhang and Xiaoyuan Yi and Yukun Yan and Ge Yu and Maosong Sun},
       year={2025},
       eprint={2502.17297},
       archivePrefix={arXiv},
       primaryClass={cs.AI},
-      url={https://arxiv.org/abs/2502.17297}, 
+      url={https://arxiv.org/abs/2502.17297v2}, 
 }
 ```
-
 
 ## 🎃 Overview
 

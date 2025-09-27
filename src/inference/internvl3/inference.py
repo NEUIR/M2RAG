@@ -4,7 +4,8 @@ import numpy as np
 import os
 from tqdm import tqdm
 from tensorboardX import SummaryWriter
-from transformers import AutoModelForImageTextToText, AutoTokenizer, AutoProcessor       # transformers>=4.51.3
+from transformers import AutoTokenizer, AutoProcessor       # transformers>=4.51.3
+from modeling_internvl_chat import InternVLChatModel
 from inference_data_new import load_data,InferenceDataset
 import torch
 import argparse
@@ -14,7 +15,7 @@ logger = logging.getLogger()
 import torch.multiprocessing as mp
 mp.set_start_method('spawn', force=True)
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
-from internvl3.get_prompt_new_after_rm import get_prompt
+from get_prompt_new_after_rm import get_prompt
 
 def set_seed(args):
     seed = args.seed
@@ -24,12 +25,12 @@ def set_seed(args):
 
 if __name__=='__main__':
     parser = argparse.ArgumentParser("")
-    parser.add_argument("--model_path",type=str,default='InternVL3_8B_Instruct_hf')
+    parser.add_argument("--model_path",type=str,default='InternVL3-8B-Instruct')
     parser.add_argument('--data_path',type=str,default='')
     parser.add_argument('--retrieval_data_path',type=str,default='')
     parser.add_argument('--prompt', type=str, default='')
     parser.add_argument("--out_path", type=str, default='')
-    parser.add_argument('--topk',type=int,default=5)
+    parser.add_argument('--topk',type=int,default=0)
     parser.add_argument('--retriever_name',type=str,default='Visualbeg')
     parser.add_argument('--task',type=str,default='') ## {'mmqa','fact_verify', 'image_cap'}
     parser.add_argument('--dataset_name',type=str,default='')
@@ -42,7 +43,7 @@ if __name__=='__main__':
 
 
     args = parser.parse_args()
-    args.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    args.device = torch.device("cuda:4" if torch.cuda.is_available() else "cpu")
     args.model_name =args.model_path.split('/')[-1]
     args.out_path=os.path.join(args.out_path,args.dataset_name)
     if not os.path.exists(args.out_path):
@@ -60,17 +61,23 @@ if __name__=='__main__':
 
     logger.info(args)
     
-    model = AutoModelForImageTextToText.from_pretrained(
+    model = InternVLChatModel.from_pretrained(
         args.model_path,
         torch_dtype=torch.bfloat16,
-        attn_implementation="flash_attention_2",
-        device_map="auto",
+        attn_implementation="eager",
+        device_map="cuda:4",
+        trust_remote_code=True
         )
     # model=model.to('cuda')
-    processor = AutoProcessor.from_pretrained(args.model_path, padding_side="left",max_pixels =512*512)
+    processor = AutoProcessor.from_pretrained(args.model_path, padding_side="left",max_pixels =512*512,trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_path, trust_remote_code=True)
     # processor = AutoProcessor.from_pretrained(args.model_path,max_pixels =512*512)
-    processor.tokenizer.padding_side = "left"
+    # processor.tokenizer.padding_side = "left"
 
+    # 设置img_context_token_id，这是必须的
+    IMG_CONTEXT_TOKEN = '<IMG_CONTEXT>'
+    img_context_token_id = tokenizer.convert_tokens_to_ids(IMG_CONTEXT_TOKEN)
+    model.img_context_token_id = img_context_token_id
 
     query_data=load_data(args.data_path)
     gen_data=InferenceDataset(args,query_data,args.prompt,processor)
@@ -85,7 +92,11 @@ if __name__=='__main__':
         for step, batch in tqdm(enumerate(gendata_reader)):
             with torch.no_grad():
                 inputs = batch['inputs']
-                generated_ids = model.generate(**inputs, max_new_tokens=args.max_new_tokens, pad_token_id=processor.tokenizer.eos_token_id)
+                # 将inputs移动到正确的设备
+                for key in inputs.keys():
+                    if isinstance(inputs[key], torch.Tensor):
+                        inputs[key] = inputs[key].to(model.device)
+                generated_ids = model.generate(**inputs, max_new_tokens=args.max_new_tokens, pad_token_id=tokenizer.eos_token_id)
                 generated_ids_trimmed = [
                     out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
                 ]
